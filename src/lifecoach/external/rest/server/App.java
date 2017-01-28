@@ -1,4 +1,4 @@
-package lifecoach.external.server;
+package lifecoach.external.rest.server;
 
 import java.io.IOException;
 import java.net.URI;

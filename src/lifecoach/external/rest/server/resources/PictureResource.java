@@ -1,8 +1,9 @@
-package lifecoach.external.server;
+package lifecoach.external.rest.server.resources;
 
 import javax.ejb.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -11,7 +12,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Stateless
 @LocalBean
-@Path("/catpic")
+@Path("/pixabay")
 public class PictureResource {
 
 	// Allows to insert contextual objects into the class,
@@ -22,11 +23,12 @@ public class PictureResource {
 	Request request;
 
 	@GET
+	@Path("/{topic}")
 	@Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
-	public String getMeasureTypes() {
-		System.out.println("Getting cat pic...");
-		String a = lifecoach.external.client.CatClient.getCatPicture();
-		System.out.println(a);
-		return a;
+	public String getMeasureTypes(@PathParam("topic") String topic) {
+		System.out.println("Getting "+topic+" pic...");
+		String link = lifecoach.external.rest.client.PixabayClient.getPictureByTopic(topic);
+		System.out.println(link);
+		return link;
 	}
 }
